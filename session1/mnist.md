@@ -99,7 +99,7 @@ Then download MNIST Digit Recognizer data using below command
       Y_train.value_counts() 
       ```
       
-      ![alt text](https://github.com/joyjeni/AI/blob/master/session1/img/class_count.png)
+      ![alt text](https://github.com/joyjeni/AI/blob/master/session1/img/class_count.png "EDA")
 
       
       
