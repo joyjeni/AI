@@ -71,6 +71,6 @@ Then download MNIST Digit Recognizer data using below command
  
  ### About the Data
  
- MNIST is a hand written digits images and each image is of size 28x28 pixels. 
- 
+ MNIST is a hand written digits images and each image is of size 28x28 = 784 pixels for each image. Given Digit Recognizer data has  42000 training images and 28000 test images. Data is represented  in csv format in which first column is label and remaining 784 columns represent pixel value. Each row represent individual images. Test data contain 784 columns. The task is to predict labels for the 28000 test images.  
+
  
