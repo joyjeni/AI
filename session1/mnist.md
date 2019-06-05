@@ -31,6 +31,7 @@ Tensorflow is a machine learning library used by researchers and also for produc
  ####  Environment Setup
  
 Google Colab is used to do this demo. <url>https://colab.research.google.com/<url>. Google Colab provides free GPU and TPU to perform ML/AI tasks. First you need to grab your New API Token fromm Kaggle account. Then uplaod api token file kaggle.json in colab using 
+ 
 ```python
 
 from google.colab import files
@@ -71,21 +72,35 @@ Then download MNIST Digit Recognizer data using below command
  
  ### About the Data
  
- MNIST is a hand written digits images and each image is of size 28x28 = 784 pixels for each image. Given Digit Recognizer data has  42000 training images and 28000 test images. Data is represented  in csv format in which first column is label and remaining 784 columns represent pixel value. Each row represent individual images. Test data contain 784 columns. The task is to predict labels for the 28000 test images.  
+ MNIST is a hand written digits images and each image is of size 28x28 = 784 pixels for each image. Given Digit Recognizer data has  42000 training images and 28000 test images. Data is represented  in csv format in which first column is label and remaining 784 columns represent pixel value. Each row represent individual images. Test data contain 784 columns. The task is to predict labels for the 28000 test images. Labels are digits 0-9.
 
  
 1.  Data Prepration 
       1. Load Data
-      
+     Read image data stored in csv format. Pandas read_csv() function is used to read csv file.
       ``` python ```
+      train = pd.read_csv("train.csv")
+      test=pd.read_csv("test.csv")
+      ```
+  Then prepare data for traininig by dropping the label column. The training data contains only pixel values.  
       
+      ```python
+      X_train = train.drop(["label"],axis = 1)
+      Y_train = train["label"]
+      X_test=test
+      ```
+      
+ 1. Exploratory data analysis
+ 
+ After reading data check the quality of data. Find how many missing values present?, how the 10 classes in training images are distributed?. The below code counts how many samples present for each classes.    
+ 
+      ``` python ```
+      g = sns.countplot(Y_train)
+      Y_train.value_counts() 
       ```
       
       
-      1. Exploratory data analysis
-      ``` python ```
       
-      ```
       1. Normalization
       ``` python ```
       
