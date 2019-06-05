@@ -99,6 +99,9 @@ Then download MNIST Digit Recognizer data using below command
       Y_train.value_counts() 
       ```
       
+      ![alt text][class_count]
+      
+      
       
       
       1. Normalization
@@ -162,3 +165,6 @@ Then download MNIST Digit Recognizer data using below command
       ```
  
  1. Further Optimization
+ 
+ 
+[class_count]:https://github.com/joyjeni/AI/blob/master/session1/img/class_count.png
