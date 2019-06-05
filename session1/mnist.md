@@ -74,3 +74,76 @@ Then download MNIST Digit Recognizer data using below command
  MNIST is a hand written digits images and each image is of size 28x28 = 784 pixels for each image. Given Digit Recognizer data has  42000 training images and 28000 test images. Data is represented  in csv format in which first column is label and remaining 784 columns represent pixel value. Each row represent individual images. Test data contain 784 columns. The task is to predict labels for the 28000 test images.  
 
  
+1.  Data Prepration 
+      1. Load Data
+      
+      ``` python ```
+      
+      ```
+      
+      
+      1. Exploratory data analysis
+      ``` python ```
+      
+      ```
+      1. Normalization
+      ``` python ```
+      
+      ```
+      1. Reshaping
+      ``` python ```
+      
+      ```
+      1. Label encoding
+      ``` python ```
+      
+      ```
+      1. Split training and validation set
+      ``` python ```
+      
+      ```
+
+ 1.  Building CNN Model
+     1. Constructing sequential CNN model
+     ``` python ```
+      
+      ```
+     1. Set hyperparameters
+     ``` python ```
+      
+      ```
+     1. Set optimizer
+     ``` python ```
+      
+      ```
+     1. Compiling the model
+     ``` python ```
+      
+      ```
+     1. Fit the Model 
+     ``` python ```
+      
+      ```
+ 
+ 1. Evaluate the model
+     1. Find training and validation accuracy
+     ``` python ```
+      
+      ```
+     1. Creating confusion matrix using predicted and actual labels
+     
+     ``` python ```
+      
+      ```
+
+ 1. Image Prediction
+     1. Predict label for given image
+     ``` python ```
+      
+      ```
+     1. Visualize Top 10 errors
+     ``` python ```
+      
+      ```
+ 
+ 1. Further Optimization
