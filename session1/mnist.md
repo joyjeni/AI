@@ -94,7 +94,7 @@ Then download MNIST Digit Recognizer data using below command
  
  After reading data check the quality of data.Find how the 10 classes in training images are distributed?, Find how many missing values present?. The below code counts how many samples present for each classes.    
  
-``` python ```
+``` python
 g = sns.countplot(Y_train)
 Y_train.value_counts() 
 ```
@@ -104,42 +104,42 @@ Y_train.value_counts()
 Next we calculate number of null values in train and test data. This will tell is there any corrupted images in data. In this case there is no null values the data quality is good.
 
 
-``` python ```
+``` python
 X_train.isnull().any().describe()
 ```
-```python ```
+```python
 X_test.isnull().any().describe()
 ```
 
-
-
-
  1. Normalization
+  
+ This is gray scale image with possible pixel intensity values from 0-255. To make the pixel intensity values within range 0-1 divide all pixel intensity values by 255. The motivation is to achieve consistency in range of values which is easy for humans to read  and to avoid mental distraction or fatigue
  
- ``` python ```
+ ``` python
 X_train = X_train/255.0
 X_test = X_test/255.0
 ```
-      1. Reshaping
-      ``` python ```
-      
+1. Reshaping
+
+  ``` python ```
+X_train = X_train.values.reshape(-1, 28, 28,1)
+X_test = X_test.values.reshape(-1, 28, 28,1)
       ```
       1. Label encoding
-      ``` python ```
+      ``` python
       
       ```
       1. Split training and validation set
-      ``` python ```
-      
+      ``` python
       ```
 
  1.  Building CNN Model
      1. Constructing sequential CNN model
-     ``` python ```
+     ``` python 
       
       ```
      1. Set hyperparameters
-     ``` python ```
+     ``` python 
       
       ```
      1. Set optimizer
