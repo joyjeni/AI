@@ -92,23 +92,34 @@ Then download MNIST Digit Recognizer data using below command
       
  1. Exploratory data analysis
  
- After reading data check the quality of data. Find how many missing values present?, how the 10 classes in training images are distributed?. The below code counts how many samples present for each classes.    
+ After reading data check the quality of data.Find how the 10 classes in training images are distributed?, Find how many missing values present?. The below code counts how many samples present for each classes.    
  
-      ``` python ```
-      g = sns.countplot(Y_train)
-      Y_train.value_counts() 
-      ```
+``` python ```
+g = sns.countplot(Y_train)
+Y_train.value_counts() 
+```
       
 ![alt text](https://github.com/joyjeni/AI/blob/master/session1/img/class_count.png "EDA")
 
-      
-      
-      
-      
-      1. Normalization
-      ``` python ```
-      
-      ```
+Next we calculate number of null values in train and test data. This will tell is there any corrupted images in data. In this case there is no null values the data quality is good.
+
+
+``` python ```
+X_train.isnull().any().describe()
+```
+```python ```
+X_test.isnull().any().describe()
+```
+
+
+
+
+ 1. Normalization
+ 
+ ``` python ```
+X_train = X_train/255.0
+X_test = X_test/255.0
+```
       1. Reshaping
       ``` python ```
       
