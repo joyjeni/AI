@@ -256,7 +256,7 @@ plot_confusion_matrix(confusion_mtx, classes = range(10))
       
    ```python
    ```
-   ![alt text](https://github.com/joyjeni/AI/blob/master/session1/img/top25_errors.jpg top25)
+   ![alt text](https://github.com/joyjeni/AI/blob/master/session1/img/top25_errors.jpg top25 "top25")
       
     1. Predict Test Data
     ```python
