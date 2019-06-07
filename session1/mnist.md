@@ -159,9 +159,7 @@ X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size = 
      * Global Average Pooling
      * Activation
      
-     
-     
-     ``` python 
+``` python 
 model = Sequential()
 model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(28,28,1))) # 26
 model.add(BatchNormalization())
