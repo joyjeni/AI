@@ -187,5 +187,4 @@ In label encoding convert labels into one hot encoding.
  
  1. Further Optimization
  
- 
-![onehot]:https://github.com/joyjeni/AI/blob/master/session1/img/onehot_cropped.png "onehot"
+[onehot]:https://github.com/joyjeni/AI/blob/master/session1/img/onehot_cropped.png "onehot"
