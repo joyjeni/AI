@@ -133,14 +133,23 @@ In label encoding convert labels into one hot encoding.
 
 ![alt text](https://github.com/joyjeni/AI/blob/master/session1/img/onehot_cropped.png "onehot")
 
-
+Keras function to_categorical() takes labels[0-9] as input and convert to one hot encoding of integer encoded values.
 
 ``` python
-      
-      ```
-      1. Split training and validation set
-      ``` python
-      ```
+from keras.utils.np_utils import to_categorical
+
+Y_train = to_categorical(Y_train, num_classes = 10)
+   ```
+ 1. Split training and validation set
+ 
+ Training data is splitted into train and validation set. Validation data is created to evaluate the performance of model before applying it into actual data. Below code randomly moves 10% of training data into validation data. We set random seed =3 to initialise random generator to randomly pick the validation data.
+  
+  ```python
+from sklearn.model_selection import train_test_split
+# Set the random seed
+random_seed = 3
+X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size = 0.1, random_state=random_seed)
+```
 
  1.  Building CNN Model
      1. Constructing sequential CNN model
