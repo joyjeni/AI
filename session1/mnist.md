@@ -131,7 +131,7 @@ X_test = X_test.values.reshape(len(X_test), 28, 28,1)
 
 In label encoding convert labels into one hot encoding. 
 
-![alt text][logo]
+![alt text][onehot]
 
 
 
@@ -188,4 +188,4 @@ In label encoding convert labels into one hot encoding.
  1. Further Optimization
  
  
-![onehot]:(https://github.com/joyjeni/AI/blob/master/session1/img/onehot_cropped.png "onehot")
+![onehot]:https://github.com/joyjeni/AI/blob/master/session1/img/onehot_cropped.png "onehot"
