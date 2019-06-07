@@ -24,10 +24,7 @@ Tensorflow is a machine learning library used by researchers and also for produc
 
  1. Image Prediction
      1. Predict label for given image
-     1. Visualize Top 10 errors
- 
- 1. Further Optimization
- 
+    
  ####  Environment Setup
  
 Google Colab is used to do this demo. <url>https://colab.research.google.com/<url>. Google Colab provides free GPU and TPU to perform ML/AI tasks. First you need to grab your New API Token fromm Kaggle account. Then uplaod api token file kaggle.json in colab using 
@@ -153,47 +150,133 @@ X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size = 
 
  1.  Building CNN Model
      1. Constructing sequential CNN model
+     
+     * Receptive Field
+     
+     * Convolution 
+     * Batch Normalization
+     * Max Pooling
+     * Global Average Pooling
+     * Activation
+     
+     
+     
      ``` python 
-      
-      ```
-     1. Set hyperparameters
+model = Sequential()
+model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(28,28,1))) # 26
+model.add(BatchNormalization())
+
+model.add(Conv2D(16, (3, 3), activation='relu')) # 24
+model.add(BatchNormalization())
+
+model.add(Conv2D(21, (3, 3), activation='relu')) # 22
+model.add(BatchNormalization())
+
+model.add(MaxPooling2D(pool_size=(2, 2))) #11
+
+model.add(Conv2D(18, (3, 3), activation='relu')) # 9
+model.add(BatchNormalization())
+
+
+
+model.add(Conv2D(27, (3,3), activation='relu'))#7
+model.add(BatchNormalization())
+
+model.add(Conv2D(15, (3,3), activation='relu'))#5
+model.add(BatchNormalization())
+
+model.add(Conv2D(10, (3,3), activation='relu'))#3
+model.add(BatchNormalization())
+
+
+model.add(Conv2D(10, 1, activation='relu'))#1
+model.add(BatchNormalization())
+
+
+model.add(GlobalAveragePooling2D())
+
+
+#model.add(Flatten())
+model.add(Activation('softmax'))
+```
+
+1. Set hyperparameters
      ``` python 
       
       ```
      1. Set optimizer
-     ``` python ```
+     ``` python
       
       ```
      1. Compiling the model
-     ``` python ```
-      
+     
+ ``` python
+model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
       ```
      1. Fit the Model 
-     ``` python ```
-      
+     
+``` python
+%%time
+history = model.fit(X_train, Y_train, epochs=40,verbose=1,validation_data = (X_val,Y_val),batch_size=batch_size)
       ```
  
  1. Evaluate the model
+ 
      1. Find training and validation accuracy
-     ``` python ```
+     ``` python
+      val_loss,val_acc = model.evaluate(X_val, Y_val, verbose=0)
+      print("Validation Accuracy:",val_acc)       
+      ```    
       
-      ```
-     1. Creating confusion matrix using predicted and actual labels
+ The validation accuracy is 99.11 %. 
      
-     ``` python ```
       
-      ```
 
  1. Image Prediction
      1. Predict label for given image
      ``` python ```
-      
+      # Predict the values from the validation dataset
+Y_pred = model.predict(X_val)
       ```
-     1. Visualize Top 10 errors
-     ``` python ```
       
-      ```
- 
- 1. Further Optimization
- 
+     1. Creating confusion matrix using predicted and actual labels
+     
+     ``` python
+      import itertools 
+
+# Convert predictions classes to one hot vectors 
+Y_pred_classes = np.argmax(Y_pred,axis = 1) 
+# Convert validation observations to one hot vectors
+Y_true = np.argmax(Y_val,axis = 1) 
+# compute the confusion matrix
+confusion_mtx = confusion_matrix(Y_true, Y_pred_classes) 
+# plot the confusion matrix
+plot_confusion_matrix(confusion_mtx, classes = range(10))  
+ ```     
+      
+      1. Visualize Top 25 Errors
+      
+   ```python
+   ```
+      ![top25](https://github.com/joyjeni/AI/blob/master/session1/img/top25_errors.jpg top25)
+      
+    1. Predict Test Data
+    ```python
+    # predict results
+results = model.predict(X_test)
+# select the indix with the maximum probability
+results = np.argmax(results,axis = 1)
+results = pd.Series(results,name="Label")
+```
+
+
+```python
+
+submit = pd.concat([pd.Series(range(1,28001),name = "ImageId"),results],axis = 1)
+
+submit.to_csv("cnn_mnist_predictions.csv",index=False)
+```
+
+
+
 
