@@ -113,7 +113,7 @@ X_test.isnull().any().describe()
 
  1. Normalization
   
- This is gray scale image with possible pixel intensity values from 0-255. To make the pixel intensity values within range 0-1 divide all pixel intensity values by 255. The motivation is to achieve consistency in range of values which is easy for humans to read  and to avoid mental distraction or fatigue
+ This is gray scale image with possible pixel intensity values from 0-255. To make the pixel intensity values within range 0-1 divide all pixel intensity values by 255. The motivation is to achieve consistency in range of values handled to avoid mental distraction or fatigue
  
  ``` python
 X_train = X_train/255.0
@@ -121,12 +121,21 @@ X_test = X_test/255.0
 ```
 1. Reshaping
 
-  ``` python ```
-X_train = X_train.values.reshape(-1, 28, 28,1)
-X_test = X_test.values.reshape(-1, 28, 28,1)
-      ```
-      1. Label encoding
-      ``` python
+The Conv2D layers in Keras is designed to work with 3 dimensions per image. The have 4D inputs and outputs. The input arguments are number of samples, width,height and number of features or channels. Syntax: reshape (nb_samples,  width, height,nb_features)
+
+  ``` python
+X_train = X_train.values.reshape(len(X_train), 28, 28,1)
+X_test = X_test.values.reshape(len(X_test), 28, 28,1)
+```
+1. Label encoding
+
+In label encoding convert labels into one hot encoding. 
+
+
+
+
+
+``` python
       
       ```
       1. Split training and validation set
