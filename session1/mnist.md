@@ -199,13 +199,15 @@ model.add(Activation('softmax'))
 ```
 
 1. Set hyperparameters
-     ``` python 
-      
-      ```
+
+ Hyperparameter is a parameter whose value is set before the learning process. Hyperparameters present in CNN are 
+ 
+ * Learning Rate
+ * Number of epochs
+ * Batch Size 
+    
      1. Set optimizer
-     ``` python
-      
-      ```
+     
      1. Compiling the model
      
  ``` python
@@ -251,8 +253,7 @@ confusion_mtx = confusion_matrix(Y_true, Y_pred_classes)
 # plot the confusion matrix
 plot_confusion_matrix(confusion_mtx, classes = range(10))  
  ```     
-      
-      1. Visualize Top 25 Errors
+ 1. Visualize Top 25 Errors
       
    ```python
    ```
