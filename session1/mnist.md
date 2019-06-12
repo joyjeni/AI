@@ -75,7 +75,8 @@ Then download MNIST Digit Recognizer data using below command
 1.  Data Prepration 
       1. Load Data
      Read image data stored in csv format. Pandas read_csv() function is used to read csv file.
-      ``` python ```
+     
+      ``` python
       train = pd.read_csv("train.csv")
       test=pd.read_csv("test.csv")
       ```
@@ -150,10 +151,10 @@ X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size = 
 
  1.  Building CNN Model
      1. Constructing sequential CNN model
-     
-     * Receptive Field
-     
+              
      * Convolution 
+     Convolution  is done to extract features from input images. 
+     ![convolution](https://github.com/joyjeni/AI/blob/master/session1/img/convolution.gif)
      * Batch Normalization
      * Max Pooling
      * Global Average Pooling
