@@ -226,13 +226,19 @@ Then download MNIST Digit Recognizer data using below command
    * Batch Size 
 
        1. Set optimizer
+       
        Adam optimizer is used to create the model
+       
        1. Compiling the model
+       
+categorical_crossentropy is a loss function for catecorical variables. 
 
   ``` python
   model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
   ```
-     3. Fit the Model 
+  3. Fit the Model 
+     
+     Apply model in train and validation set.
 
   ``` python
   %%time
