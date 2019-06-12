@@ -35,10 +35,6 @@ from google.colab import files
 files.upload()
 ```
 
-
-
-To load data create
- 
  Next step is to mount a google drive and change to desired directory in google drive. 
  
  ```python
@@ -74,14 +70,15 @@ Then download MNIST Digit Recognizer data using below command
  
 1.  Data Prepration 
 
-   1. Load Data
+  1. Load Data
+   
    Read image data stored in csv format. Pandas read_csv() function is used to read csv file.
 
   ``` python
   train = pd.read_csv("train.csv")
   test=pd.read_csv("test.csv")
   ```
-    Then prepare data for traininig by dropping the label column. The training data contains only pixel values.  
+  Then prepare data for traininig by dropping the label column. The training data contains only pixel values.  
 
   ```python
   X_train = train.drop(["label"],axis = 1)
@@ -168,9 +165,10 @@ Then download MNIST Digit Recognizer data using below command
        Max Pooling extracts important feature obtained from convolution. Maxpooling is done after few convolutions.In code below 2x2 max pooling is used. It find the maximum value in 2x2 and return highest value. It also reduces number of parameters in network by reducing the size of feature map.
   ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/maxpool.png)
 
-    * Global Average Pooling
+* Global Average Pooling
         For 11x11x10 incoming tensor of feature maps take the average of each 11x11 matrix slice which gives 10 dimensional vector.This can feed  into the fully connected layers which is single dimension vector representing 10 classes.
-       * ReLu Activation
+       
+* ReLu Activation
       ReLu Activation function is used to carry forward all positive values to next layer and negative values are dropped down. Any value less than zero is negative and value zero and greater is taken as positive value. 
 
   ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/relu.png)
