@@ -221,8 +221,8 @@ b. Set hyperparameters
 Hyperparameter is a parameter whose value is set before the learning process. Hyperparameters present in CNN are 
 
 * Learning Rate
-* Number of epochs
-* Batch Size 
+* Number of epochs - Number of times whole training image is seen
+* Batch Size - Number of images to be read at a time for extracting feature maps
 
 c. Set optimizer
 
@@ -230,8 +230,7 @@ Adam optimizer is used to create the model
 
 d. Compiling the model
 
-categorical_crossentropy is a loss function for catecorical variables. 
-
+categorical_crossentropy is a loss function for catecorical variables is passed to compiler. The metric 'accuracy' is used to measure the performance of the model.
 ``` python
 model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 ```
