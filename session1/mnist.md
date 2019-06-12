@@ -73,6 +73,7 @@ Then download MNIST Digit Recognizer data using below command
 
  
 1.  Data Prepration 
+
         1. Load Data
        Read image data stored in csv format. Pandas read_csv() function is used to read csv file.
 
@@ -150,89 +151,90 @@ Then download MNIST Digit Recognizer data using below command
   ```
 
  1.  Building CNN Model
-     1. Constructing sequential CNN model
-              
-     * Convolution 
-     Convolution  is done to extract features from input images. In figure below the image size is 5X5 and kernel size is 3x3. The kernel is slided over the image to extract feature map. The feature map extracted is spatially corelated
-     
-     ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/convolution.gif)
-     
-    * Batch Normalization
-The batch normalization is used to bring the values in hidden layers in same scale. To classify oranges and lemons each batch sees different set of values and their activation values will be different. Batch Normalization reduces the dependency between each batch by bringing all values into same scale. 
-
-![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/batch_normalization.png)
-
-* Max Pooling
-     Max Pooling extracts important feature obtained from convolution. Maxpooling is done after few convolutions.In code below 2x2 max pooling is used. It find the maximum value in 2x2 and return highest value. It also reduces number of parameters in network by reducing the size of feature map.
-![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/maxpool.png)
-     
-  * Global Average Pooling
-      For 11x11x10 incoming tensor of feature maps take the average of each 11x11 matrix slice which gives 10 dimensional vector.This can feed  into the fully connected layers which is single dimension vector representing 10 classes.
-     * ReLu Activation
-    ReLu Activation function is used to carry forward all positive values to next layer and negative values are dropped down. Any value less than zero is negative and value zero and greater is taken as positive value. 
-    
-![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/relu.png)
-
-```python
-model = Sequential()
-model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(28,28,1))) # 26
-model.add(BatchNormalization())
-
-model.add(Conv2D(16, (3, 3), activation='relu')) # 24
-model.add(BatchNormalization())
-
-model.add(Conv2D(21, (3, 3), activation='relu')) # 22
-model.add(BatchNormalization())
-
-model.add(MaxPooling2D(pool_size=(2, 2))) #11
-
-model.add(Conv2D(18, (3, 3), activation='relu')) # 9
-model.add(BatchNormalization())
-
-
-
-model.add(Conv2D(27, (3,3), activation='relu'))#7
-model.add(BatchNormalization())
-
-model.add(Conv2D(15, (3,3), activation='relu'))#5
-model.add(BatchNormalization())
-
-model.add(Conv2D(10, (3,3), activation='relu'))#3
-model.add(BatchNormalization())
-
-
-model.add(Conv2D(10, 1, activation='relu'))#1
-model.add(BatchNormalization())
-
-
-model.add(GlobalAveragePooling2D())
-
-
-#model.add(Flatten())
-model.add(Activation('softmax'))
-```
-
-1. Set hyperparameters
-
- Hyperparameter is a parameter whose value is set before the learning process. Hyperparameters present in CNN are 
  
- * Learning Rate
- * Number of epochs
- * Batch Size 
-    
-     1. Set optimizer
-     Adam optimizer is used to create the model
-     1. Compiling the model
- 
-``` python
-model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
-```
-1. Fit the Model 
-     
-``` python
-%%time
-history = model.fit(X_train, Y_train, epochs=40,verbose=1,validation_data = (X_val,Y_val),batch_size=batch_size)
-```
+       1. Constructing sequential CNN model
+
+       * Convolution 
+       Convolution  is done to extract features from input images. In figure below the image size is 5X5 and kernel size is 3x3. The kernel is slided over the image to extract feature map. The feature map extracted is spatially corelated
+
+       ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/convolution.gif)
+
+      * Batch Normalization
+  The batch normalization is used to bring the values in hidden layers in same scale. To classify oranges and lemons each batch sees different set of values and their activation values will be different. Batch Normalization reduces the dependency between each batch by bringing all values into same scale. 
+
+  ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/batch_normalization.png)
+
+  * Max Pooling
+       Max Pooling extracts important feature obtained from convolution. Maxpooling is done after few convolutions.In code below 2x2 max pooling is used. It find the maximum value in 2x2 and return highest value. It also reduces number of parameters in network by reducing the size of feature map.
+  ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/maxpool.png)
+
+    * Global Average Pooling
+        For 11x11x10 incoming tensor of feature maps take the average of each 11x11 matrix slice which gives 10 dimensional vector.This can feed  into the fully connected layers which is single dimension vector representing 10 classes.
+       * ReLu Activation
+      ReLu Activation function is used to carry forward all positive values to next layer and negative values are dropped down. Any value less than zero is negative and value zero and greater is taken as positive value. 
+
+  ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/relu.png)
+
+  ```python
+  model = Sequential()
+  model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(28,28,1))) # 26
+  model.add(BatchNormalization())
+
+  model.add(Conv2D(16, (3, 3), activation='relu')) # 24
+  model.add(BatchNormalization())
+
+  model.add(Conv2D(21, (3, 3), activation='relu')) # 22
+  model.add(BatchNormalization())
+
+  model.add(MaxPooling2D(pool_size=(2, 2))) #11
+
+  model.add(Conv2D(18, (3, 3), activation='relu')) # 9
+  model.add(BatchNormalization())
+
+
+
+  model.add(Conv2D(27, (3,3), activation='relu'))#7
+  model.add(BatchNormalization())
+
+  model.add(Conv2D(15, (3,3), activation='relu'))#5
+  model.add(BatchNormalization())
+
+  model.add(Conv2D(10, (3,3), activation='relu'))#3
+  model.add(BatchNormalization())
+
+
+  model.add(Conv2D(10, 1, activation='relu'))#1
+  model.add(BatchNormalization())
+
+
+  model.add(GlobalAveragePooling2D())
+
+
+  #model.add(Flatten())
+  model.add(Activation('softmax'))
+  ```
+
+  1. Set hyperparameters
+
+   Hyperparameter is a parameter whose value is set before the learning process. Hyperparameters present in CNN are 
+
+   * Learning Rate
+   * Number of epochs
+   * Batch Size 
+
+       1. Set optimizer
+       Adam optimizer is used to create the model
+       1. Compiling the model
+
+  ``` python
+  model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
+  ```
+  1. Fit the Model 
+
+  ``` python
+  %%time
+  history = model.fit(X_train, Y_train, epochs=40,verbose=1,validation_data = (X_val,Y_val),batch_size=batch_size)
+  ```
  
  1. Evaluate the model
  
