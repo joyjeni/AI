@@ -76,17 +76,17 @@ Then download MNIST Digit Recognizer data using below command
       1. Load Data
      Read image data stored in csv format. Pandas read_csv() function is used to read csv file.
      
-      ``` python
-      train = pd.read_csv("train.csv")
-      test=pd.read_csv("test.csv")
-      ```
+``` python
+train = pd.read_csv("train.csv")
+test=pd.read_csv("test.csv")
+```
   Then prepare data for traininig by dropping the label column. The training data contains only pixel values.  
-      
-      ```python
-      X_train = train.drop(["label"],axis = 1)
-      Y_train = train["label"]
-      X_test=test
-      ```
+
+```python
+X_train = train.drop(["label"],axis = 1)
+Y_train = train["label"]
+X_test=test
+```
       
  1. Exploratory data analysis
  
@@ -227,7 +227,7 @@ model.add(Activation('softmax'))
      Adam optimizer is used to create the model
      1. Compiling the model
  
- ``` python
+``` python
 model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 ```
 1. Fit the Model 
@@ -254,13 +254,13 @@ print("Validation Accuracy:",val_acc)
      1. Predict label for given image
      
 ``` python
-      # Predict the values from the validation dataset
+# Predict the values from the validation dataset
 Y_pred = model.predict(X_val)
-      ```
+```
 1. Creating confusion matrix using predicted and actual labels
      
 ``` python
-      import itertools 
+import itertools 
 
 # Convert predictions classes to one hot vectors 
 Y_pred_classes = np.argmax(Y_pred,axis = 1) 
@@ -276,7 +276,7 @@ plot_confusion_matrix(confusion_mtx, classes = range(10))
 1. Predict Test Data
     
  ```python
-    # predict results
+# predict results
 results = model.predict(X_test)
 # select the indix with the maximum probability
 results = np.argmax(results,axis = 1)
