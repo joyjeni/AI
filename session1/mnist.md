@@ -74,8 +74,8 @@ Then download MNIST Digit Recognizer data using below command
  
 1.  Data Prepration 
 
-        1. Load Data
-       Read image data stored in csv format. Pandas read_csv() function is used to read csv file.
+   1. Load Data
+   Read image data stored in csv format. Pandas read_csv() function is used to read csv file.
 
   ``` python
   train = pd.read_csv("train.csv")
@@ -121,10 +121,10 @@ Then download MNIST Digit Recognizer data using below command
   1. Reshaping
 
   The Conv2D layers in Keras is designed to work with 3 dimensions per image. The have 4D inputs and outputs. The input arguments are number of samples, width,height and number of features or channels. Syntax: reshape (nb_samples,  width, height,nb_features)
-
-    ``` python
+  
+  ``` python
   X_train = X_train.values.reshape(len(X_train), 28, 28,1)
-  X_test = X_test.values.reshape(len(X_test), 28, 28,1)
+  X_test = X_test.values.reshape(len(X_test), 28, 28,1) 
   ```
   1. Label encoding
 
@@ -138,19 +138,19 @@ Then download MNIST Digit Recognizer data using below command
   from keras.utils.np_utils import to_categorical
 
   Y_train = to_categorical(Y_train, num_classes = 10)
-     ```
+   ```
    1. Split training and validation set
 
    Training data is splitted into train and validation set. Validation data is created to evaluate the performance of model before applying it into actual data. Below code randomly moves 10% of training data into validation data. We set random seed =3 to initialise random generator to randomly pick the validation data.
 
-    ```python
+  ```python
   from sklearn.model_selection import train_test_split
   # Set the random seed
   random_seed = 3
   X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size = 0.1, random_state=random_seed)
   ```
 
- 1.  Building CNN Model
+1.  Building CNN Model
  
        1. Constructing sequential CNN model
 
