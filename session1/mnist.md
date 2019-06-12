@@ -69,6 +69,7 @@ Then download MNIST Digit Recognizer data using below command
 
  
 1.  Data Prepration 
+
    1. Load Data
    
    Read image data stored in csv format. Pandas read_csv() function is used to read csv file.
@@ -216,7 +217,7 @@ Then download MNIST Digit Recognizer data using below command
   model.add(Activation('softmax'))
   ```
 
- *** Set hyperparameters
+   2. Set hyperparameters
 
    Hyperparameter is a parameter whose value is set before the learning process. Hyperparameters present in CNN are 
 
@@ -231,7 +232,7 @@ Then download MNIST Digit Recognizer data using below command
   ``` python
   model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
   ```
-  *** Fit the Model 
+     3. Fit the Model 
 
   ``` python
   %%time
