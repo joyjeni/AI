@@ -70,7 +70,7 @@ Then download MNIST Digit Recognizer data using below command
  
 1.  Data Prepration 
 
-   1. Load Data
+   a. Load Data
    
    Read image data stored in csv format. Pandas read_csv() function is used to read csv file.
 
@@ -86,7 +86,7 @@ Then download MNIST Digit Recognizer data using below command
   X_test=test
   ```
 
-   2. Exploratory data analysis
+   b. Exploratory data analysis
 
    After reading data check the quality of data.Find how the 10 classes in training images are distributed?, Find how many missing values present?. The below code counts how many samples present for each classes.    
 
@@ -107,7 +107,7 @@ Then download MNIST Digit Recognizer data using below command
   X_test.isnull().any().describe()
   ```
 
-  3. Normalization
+  c. Normalization
 
    This is gray scale image with possible pixel intensity values from 0-255. To make the pixel intensity values within range 0-1 divide all pixel intensity values by 255. The motivation is to achieve consistency in range of values handled to avoid mental distraction or fatigue
 
@@ -115,7 +115,7 @@ Then download MNIST Digit Recognizer data using below command
   X_train = X_train/255.0
   X_test = X_test/255.0
   ```
-  4. Reshaping
+ d. Reshaping
 
   The Conv2D layers in Keras is designed to work with 3 dimensions per image. The have 4D inputs and outputs. The input arguments are number of samples, width,height and number of features or channels. Syntax: reshape (nb_samples,  width, height,nb_features)
   
@@ -123,7 +123,7 @@ Then download MNIST Digit Recognizer data using below command
   X_train = X_train.values.reshape(len(X_train), 28, 28,1)
   X_test = X_test.values.reshape(len(X_test), 28, 28,1) 
   ```
-  5. Label encoding
+ e. Label encoding
 
   In label encoding convert labels into one hot encoding. 
 
@@ -136,7 +136,7 @@ Then download MNIST Digit Recognizer data using below command
 
   Y_train = to_categorical(Y_train, num_classes = 10)
    ```
-   6. Split training and validation set
+   f. Split training and validation set
 
    Training data is splitted into train and validation set. Validation data is created to evaluate the performance of model before applying it into actual data. Below code randomly moves 10% of training data into validation data. We set random seed =3 to initialise random generator to randomly pick the validation data.
 
