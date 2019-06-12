@@ -147,7 +147,7 @@ Then download MNIST Digit Recognizer data using below command
   X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size = 0.1, random_state=random_seed)
   ```
 
-1.  Building CNN Model
+2.  Building CNN Model
  
        1. Constructing sequential CNN model
 
@@ -239,7 +239,7 @@ Then download MNIST Digit Recognizer data using below command
   history = model.fit(X_train, Y_train, epochs=40,verbose=1,validation_data = (X_val,Y_val),batch_size=batch_size)
   ```
  
- 1. Evaluate the model
+ 3. Evaluate the model
  
      1. Find training and validation accuracy
      
@@ -252,14 +252,14 @@ print("Validation Accuracy:",val_acc)
      
      
 
- 1. Image Prediction
+4. Image Prediction
      1. Predict label for given image
      
 ``` python
 # Predict the values from the validation dataset
 Y_pred = model.predict(X_val)
 ```
-1. Creating confusion matrix using predicted and actual labels
+5. Creating confusion matrix using predicted and actual labels
      
 ``` python
 import itertools 
@@ -275,7 +275,7 @@ plot_confusion_matrix(confusion_mtx, classes = range(10))
  ```     
 
       
-1. Predict Test Data
+6. Predict Test Data
     
  ```python
 # predict results
@@ -284,7 +284,7 @@ results = model.predict(X_test)
 results = np.argmax(results,axis = 1)
 results = pd.Series(results,name="Label")
 ```
-1. Save Predictions
+7. Save Predictions
 
 The predicted labels are stored in csv file using pandas to_csv function.
 ```python
