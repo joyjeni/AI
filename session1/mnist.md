@@ -280,6 +280,8 @@ results = np.argmax(results,axis = 1)
 results = pd.Series(results,name="Label")
 ```
 1. Save Predictions
+
+The predicted labels are stored in csv file using pandas to_csv function.
 ```python
 submit = pd.concat([pd.Series(range(1,28001),name = "ImageId"),results],axis = 1)
 submit.to_csv("cnn_mnist_predictions.csv",index=False)
