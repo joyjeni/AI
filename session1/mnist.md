@@ -241,10 +241,10 @@ history = model.fit(X_train, Y_train, epochs=40,verbose=1,validation_data = (X_v
  
      1. Find training and validation accuracy
      
-     ``` python
-      val_loss,val_acc = model.evaluate(X_val, Y_val, verbose=0)
-      print("Validation Accuracy:",val_acc)       
-      ```    
+``` python
+val_loss,val_acc = model.evaluate(X_val, Y_val, verbose=0)
+print("Validation Accuracy:",val_acc)       
+```    
       
  The validation accuracy is 99.11 %. 
      
@@ -252,14 +252,14 @@ history = model.fit(X_train, Y_train, epochs=40,verbose=1,validation_data = (X_v
 
  1. Image Prediction
      1. Predict label for given image
-     ``` python ```
+     
+``` python
       # Predict the values from the validation dataset
 Y_pred = model.predict(X_val)
       ```
-      
-     1. Creating confusion matrix using predicted and actual labels
+1. Creating confusion matrix using predicted and actual labels
      
-     ``` python
+``` python
       import itertools 
 
 # Convert predictions classes to one hot vectors 
