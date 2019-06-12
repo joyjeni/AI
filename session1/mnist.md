@@ -245,7 +245,8 @@ history = model.fit(X_train, Y_train, epochs=40,verbose=1,validation_data = (X_v
 
 3. Evaluate the model
 
-1. Find training and validation accuracy
+
+Find training and validation accuracy. 
 
 ``` python
 val_loss,val_acc = model.evaluate(X_val, Y_val, verbose=0)
