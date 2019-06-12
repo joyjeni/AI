@@ -162,14 +162,11 @@ The batch normalization is used to bring the values in hidden layers in same sca
 
 ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/batch_normalization.png)
 
-
-    * Max Pooling
-
+* Max Pooling
      Max Pooling extracts important feature obtained from convolution. Maxpooling is done after few convolutions.In code below 2x2 max pooling is used. It find the maximum value in 2x2 and return highest value. It also reduces number of parameters in network by reducing the size of feature map.
+![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/maxpool.png)
      
-     ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/maxpool.png)
-     
-     * Global Average Pooling
+  * Global Average Pooling
       For 11x11x10 incoming tensor of feature maps take the average of each 11x11 matrix slice which gives 10 dimensional vector.This can feed  into the fully connected layers which is single dimension vector representing 10 classes.
      * ReLu Activation
     ReLu Activation function is used to carry forward all positive values to next layer and negative values are dropped down. Any value less than zero is negative and value zero and greater is taken as positive value. 
