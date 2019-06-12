@@ -149,124 +149,124 @@ Then download MNIST Digit Recognizer data using below command
 
 2.  Building CNN Model
  
-       1. Constructing sequential CNN model
+a. Constructing sequential CNN model
 
-       * Convolution 
-       
-       Convolution  is done to extract features from input images. In figure below the image size is 5X5 and kernel size is 3x3. The kernel is slided over the image to extract feature map. The feature map extracted is spatially corelated
+* Convolution 
 
-       ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/convolution.gif)
+Convolution  is done to extract features from input images. In figure below the image size is 5X5 and kernel size is 3x3. The kernel is slided over the image to extract feature map. The feature map extracted is spatially corelated
 
-      * Batch Normalization
-      
-  The batch normalization is used to bring the values in hidden layers in same scale. To classify oranges and lemons each batch sees different set of values and their activation values will be different. Batch Normalization reduces the dependency between each batch by bringing all values into same scale. 
+![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/convolution.gif)
 
-  ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/batch_normalization.png)
+* Batch Normalization
 
-  * Max Pooling
-  
-       Max Pooling extracts important feature obtained from convolution. Maxpooling is done after few convolutions.In code below 2x2 max pooling is used. It find the maximum value in 2x2 and return highest value. It also reduces number of parameters in network by reducing the size of feature map.
-  ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/maxpool.png)
+The batch normalization is used to bring the values in hidden layers in same scale. To classify oranges and lemons each batch sees different set of values and their activation values will be different. Batch Normalization reduces the dependency between each batch by bringing all values into same scale. 
+
+![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/batch_normalization.png)
+
+* Max Pooling
+
+Max Pooling extracts important feature obtained from convolution. Maxpooling is done after few convolutions.In code below 2x2 max pooling is used. It find the maximum value in 2x2 and return highest value. It also reduces number of parameters in network by reducing the size of feature map.
+![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/maxpool.png)
 
 * Global Average Pooling
 
-        For 11x11x10 incoming tensor of feature maps take the average of each 11x11 matrix slice which gives 10 dimensional vector.This can feed  into the fully connected layers which is single dimension vector representing 10 classes.
-       
+For 11x11x10 incoming tensor of feature maps take the average of each 11x11 matrix slice which gives 10 dimensional vector.This can feed  into the fully connected layers which is single dimension vector representing 10 classes.
+
 * ReLu Activation
 
-      ReLu Activation function is used to carry forward all positive values to next layer and negative values are dropped down. Any value less than zero is negative and value zero and greater is taken as positive value. 
+ReLu Activation function is used to carry forward all positive values to next layer and negative values are dropped down. Any value less than zero is negative and value zero and greater is taken as positive value. 
 
-  ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/relu.png)
+![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/relu.png)
 
-  ```python
-  model = Sequential()
-  model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(28,28,1))) # 26
-  model.add(BatchNormalization())
+```python
+model = Sequential()
+model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(28,28,1))) # 26
+model.add(BatchNormalization())
 
-  model.add(Conv2D(16, (3, 3), activation='relu')) # 24
-  model.add(BatchNormalization())
+model.add(Conv2D(16, (3, 3), activation='relu')) # 24
+model.add(BatchNormalization())
 
-  model.add(Conv2D(21, (3, 3), activation='relu')) # 22
-  model.add(BatchNormalization())
+model.add(Conv2D(21, (3, 3), activation='relu')) # 22
+model.add(BatchNormalization())
 
-  model.add(MaxPooling2D(pool_size=(2, 2))) #11
+model.add(MaxPooling2D(pool_size=(2, 2))) #11
 
-  model.add(Conv2D(18, (3, 3), activation='relu')) # 9
-  model.add(BatchNormalization())
-
-
-
-  model.add(Conv2D(27, (3,3), activation='relu'))#7
-  model.add(BatchNormalization())
-
-  model.add(Conv2D(15, (3,3), activation='relu'))#5
-  model.add(BatchNormalization())
-
-  model.add(Conv2D(10, (3,3), activation='relu'))#3
-  model.add(BatchNormalization())
+model.add(Conv2D(18, (3, 3), activation='relu')) # 9
+model.add(BatchNormalization())
 
 
-  model.add(Conv2D(10, 1, activation='relu'))#1
-  model.add(BatchNormalization())
+
+model.add(Conv2D(27, (3,3), activation='relu'))#7
+model.add(BatchNormalization())
+
+model.add(Conv2D(15, (3,3), activation='relu'))#5
+model.add(BatchNormalization())
+
+model.add(Conv2D(10, (3,3), activation='relu'))#3
+model.add(BatchNormalization())
 
 
-  model.add(GlobalAveragePooling2D())
+model.add(Conv2D(10, 1, activation='relu'))#1
+model.add(BatchNormalization())
 
 
-  #model.add(Flatten())
-  model.add(Activation('softmax'))
-  ```
+model.add(GlobalAveragePooling2D())
 
-   2. Set hyperparameters
 
-   Hyperparameter is a parameter whose value is set before the learning process. Hyperparameters present in CNN are 
+#model.add(Flatten())
+model.add(Activation('softmax'))
+```
+b. Set hyperparameters
 
-   * Learning Rate
-   * Number of epochs
-   * Batch Size 
+Hyperparameter is a parameter whose value is set before the learning process. Hyperparameters present in CNN are 
 
-       1. Set optimizer
-       
-       Adam optimizer is used to create the model
-       
-       1. Compiling the model
-       
+* Learning Rate
+* Number of epochs
+* Batch Size 
+
+c. Set optimizer
+
+Adam optimizer is used to create the model
+
+d. Compiling the model
+
 categorical_crossentropy is a loss function for catecorical variables. 
 
-  ``` python
-  model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
-  ```
-  3. Fit the Model 
-     
-     Apply model in train and validation set.
+``` python
+model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
+```
+e. Fit the Model 
 
-  ``` python
-  %%time
-  history = model.fit(X_train, Y_train, epochs=40,verbose=1,validation_data = (X_val,Y_val),batch_size=batch_size)
-  ```
- 
- 3. Evaluate the model
- 
-     1. Find training and validation accuracy
-     
+Apply model in train and validation set.
+
+``` python
+%%time
+history = model.fit(X_train, Y_train, epochs=40,verbose=1,validation_data = (X_val,Y_val),batch_size=batch_size)
+```
+
+3. Evaluate the model
+
+1. Find training and validation accuracy
+
 ``` python
 val_loss,val_acc = model.evaluate(X_val, Y_val, verbose=0)
 print("Validation Accuracy:",val_acc)       
 ```    
-      
- The validation accuracy is 99.11 %. 
-     
-     
+
+The validation accuracy is 99.11 %. 
+
+
 
 4. Image Prediction
-     1. Predict label for given image
-     
+
+a. Predict label for given image
+
 ``` python
 # Predict the values from the validation dataset
 Y_pred = model.predict(X_val)
 ```
-5. Creating confusion matrix using predicted and actual labels
-     
+b. Creating confusion matrix using predicted and actual labels
+
 ``` python
 import itertools 
 
@@ -278,19 +278,19 @@ Y_true = np.argmax(Y_val,axis = 1)
 confusion_mtx = confusion_matrix(Y_true, Y_pred_classes) 
 # plot the confusion matrix
 plot_confusion_matrix(confusion_mtx, classes = range(10))  
- ```     
+```     
 
-      
-6. Predict Test Data
-    
- ```python
+
+5. Predict Test Data
+
+```python
 # predict results
 results = model.predict(X_test)
 # select the indix with the maximum probability
 results = np.argmax(results,axis = 1)
 results = pd.Series(results,name="Label")
 ```
-7. Save Predictions
+6. Save Predictions
 
 The predicted labels are stored in csv file using pandas to_csv function.
 ```python
