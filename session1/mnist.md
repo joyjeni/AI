@@ -271,26 +271,20 @@ confusion_mtx = confusion_matrix(Y_true, Y_pred_classes)
 # plot the confusion matrix
 plot_confusion_matrix(confusion_mtx, classes = range(10))  
  ```     
- 1. Visualize Top 25 Errors
+
       
-   ```python
-   ```
-   ![alt text](https://github.com/joyjeni/AI/blob/master/session1/img/top25_errors.jpg "top25")
-      
-    1. Predict Test Data
-    ```python
+1. Predict Test Data
+    
+ ```python
     # predict results
 results = model.predict(X_test)
 # select the indix with the maximum probability
 results = np.argmax(results,axis = 1)
 results = pd.Series(results,name="Label")
 ```
-
-
+1. Save Predictions
 ```python
-
 submit = pd.concat([pd.Series(range(1,28001),name = "ImageId"),results],axis = 1)
-
 submit.to_csv("cnn_mnist_predictions.csv",index=False)
 ```
 
