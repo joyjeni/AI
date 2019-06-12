@@ -158,11 +158,19 @@ X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size = 
      ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/convolution.gif)
      
      * Batch Normalization
-     * Max Pooling
-     * Global Average Pooling
-     * Activation
+     The batch normalization is used to bring the values in hidden layers in same scale. To classify oranges and lemons each batch sees different set of values and their activation values will be different. Batch Normalization reduces the dependency between each batch by bringing all values into same scale. 
      
-``` python 
+     ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/batch_normalization.png)
+     * Max Pooling
+     
+     Max Pooling extracts important feature obtained from convolution. Maxpooling is done after few convolutions.In code below 2x2 max pooling is used. It find the maximum value in 2x2 and return highest value. It also reduces number of parameters in network by reducing the size of feature map.
+     ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/maxpool.png)
+     * Global Average Pooling
+      For 11x11x10 incoming tensor of feature maps take the average of each 11x11 matrix slice which gives 10 dimensional vector.This can feed  into the fully connected layers which is single dimension vector representing 10 classes.
+     * ReLu Activation
+    ReLu Activation function is used to carry forward all positive values to next layer and negative values are dropped down. Any value less than zero is negative and value zero and greater is taken as positive value. 
+    
+    ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/relu.png)
 model = Sequential()
 model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(28,28,1))) # 26
 model.add(BatchNormalization())
@@ -210,7 +218,7 @@ model.add(Activation('softmax'))
  * Batch Size 
     
      1. Set optimizer
-     
+     Adam optimizer is used to create the model
      1. Compiling the model
      
  ``` python
