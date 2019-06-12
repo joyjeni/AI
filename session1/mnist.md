@@ -153,8 +153,10 @@ X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size = 
      1. Constructing sequential CNN model
               
      * Convolution 
-     Convolution  is done to extract features from input images. 
-     ![convolution](https://github.com/joyjeni/AI/blob/master/session1/img/convolution.gif)
+     Convolution  is done to extract features from input images. In figure below the image size is 5X5 and kernel size is 3x3. The kernel is slided over the image to extract feature map. The feature map extracted is spatially corelated
+     
+     ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/convolution.gif)
+     
      * Batch Normalization
      * Max Pooling
      * Global Average Pooling
