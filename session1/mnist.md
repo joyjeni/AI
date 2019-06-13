@@ -68,9 +68,9 @@ Then download MNIST Digit Recognizer data using below command
  MNIST is a hand written digits images and each image is of size 28x28 = 784 pixels for each image. Given Digit Recognizer data has  42000 training images and 28000 test images. Data is represented  in csv format in which first column is label and remaining 784 columns represent pixel value. Each row represent individual images. Test data contain 784 columns. The task is to predict labels for the 28000 test images. Labels are digits 0-9.
 
  
-1.  Data Prepration 
+#### 1.  Data Prepration 
 
-   a. Load Data
+   ##### a. Load Data
    
    Read image data stored in csv format. Pandas read_csv() function is used to read csv file.
 
@@ -86,7 +86,7 @@ Then download MNIST Digit Recognizer data using below command
   X_test=test
   ```
 
-   b. Exploratory data analysis
+   ##### b. Exploratory data analysis
 
    After reading data check the quality of data.Find how the 10 classes in training images are distributed?, Find how many missing values present?. The below code counts how many samples present for each classes.    
 
@@ -107,7 +107,7 @@ Then download MNIST Digit Recognizer data using below command
   X_test.isnull().any().describe()
   ```
 
-  c. Normalization
+  ##### c. Normalization
 
    This is gray scale image with possible pixel intensity values from 0-255. To make the pixel intensity values within range 0-1 divide all pixel intensity values by 255. The motivation is to achieve consistency in range of values handled to avoid mental distraction or fatigue
 
@@ -115,7 +115,7 @@ Then download MNIST Digit Recognizer data using below command
   X_train = X_train/255.0
   X_test = X_test/255.0
   ```
- d. Reshaping
+ ##### d. Reshaping
 
   The Conv2D layers in Keras is designed to work with 3 dimensions per image. The have 4D inputs and outputs. The input arguments are number of samples, width,height and number of features or channels. Syntax: reshape (nb_samples,  width, height,nb_features)
   
@@ -123,7 +123,7 @@ Then download MNIST Digit Recognizer data using below command
   X_train = X_train.values.reshape(len(X_train), 28, 28,1)
   X_test = X_test.values.reshape(len(X_test), 28, 28,1) 
   ```
- e. Label encoding
+ ##### e. Label encoding
 
   In label encoding convert labels into one hot encoding. 
 
@@ -136,7 +136,7 @@ Then download MNIST Digit Recognizer data using below command
 
   Y_train = to_categorical(Y_train, num_classes = 10)
    ```
-   f. Split training and validation set
+  ##### f. Split training and validation set
 
    Training data is splitted into train and validation set. Validation data is created to evaluate the performance of model before applying it into actual data. Below code randomly moves 10% of training data into validation data. We set random seed =3 to initialise random generator to randomly pick the validation data.
 
@@ -147,32 +147,32 @@ Then download MNIST Digit Recognizer data using below command
   X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size = 0.1, random_state=random_seed)
   ```
 
-2.  Building CNN Model
+### 2.  Building CNN Model
  
-a. Constructing sequential CNN model
+##### a. Constructing sequential CNN model
 
-* Convolution 
+###### * Convolution 
 
 Convolution  is done to extract features from input images. In figure below the image size is 5X5 and kernel size is 3x3. The kernel is slided over the image to extract feature map. The feature map extracted is spatially corelated
 
 ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/convolution.gif)
 
-* Batch Normalization
+###### * Batch Normalization
 
 The batch normalization is used to bring the values in hidden layers in same scale. To classify oranges and lemons each batch sees different set of values and their activation values will be different. Batch Normalization reduces the dependency between each batch by bringing all values into same scale. 
 
 ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/batch_normalization.png)
 
-* Max Pooling
+###### * Max Pooling
 
 Max Pooling extracts important feature obtained from convolution. Maxpooling is done after few convolutions.In code below 2x2 max pooling is used. It find the maximum value in 2x2 and return highest value. It also reduces number of parameters in network by reducing the size of feature map.
 ![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/maxpool.png)
 
-* Global Average Pooling
+###### * Global Average Pooling
 
 For 11x11x10 incoming tensor of feature maps take the average of each 11x11 matrix slice which gives 10 dimensional vector.This can feed  into the fully connected layers which is single dimension vector representing 10 classes.
 
-* ReLu Activation
+###### * ReLu Activation
 
 ReLu Activation function is used to carry forward all positive values to next layer and negative values are dropped down. Any value less than zero is negative and value zero and greater is taken as positive value. 
 
@@ -216,7 +216,7 @@ model.add(GlobalAveragePooling2D())
 #model.add(Flatten())
 model.add(Activation('softmax'))
 ```
-b. Set hyperparameters
+##### b. Set hyperparameters
 
 Hyperparameter is a parameter whose value is set before the learning process. Hyperparameters present in CNN are 
 
@@ -224,17 +224,17 @@ Hyperparameter is a parameter whose value is set before the learning process. Hy
 * Number of epochs - Number of times whole training image is seen
 * Batch Size - Number of images to be read at a time for extracting feature maps
 
-c. Set optimizer
+##### c. Set optimizer
 
 Adam optimizer is used to create the model
 
-d. Compiling the model
+##### d. Compiling the model
 
 categorical_crossentropy is a loss function for catecorical variables is passed to compiler. The metric 'accuracy' is used to measure the performance of the model.
 ``` python
 model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 ```
-e. Fit the Model 
+##### e. Fit the Model 
 
 Apply model in train and validation set.
 
@@ -243,7 +243,7 @@ Apply model in train and validation set.
 history = model.fit(X_train, Y_train, epochs=40,verbose=1,validation_data = (X_val,Y_val),batch_size=batch_size)
 ```
 
-3. Evaluate the model
+### 3. Evaluate the model
 
 
 Find training and validation accuracy. 
@@ -257,15 +257,15 @@ The validation accuracy is 99.11 %.
 
 
 
-4. Image Prediction
+### 4. Image Prediction
 
-a. Predict label for given image
+##### a. Predict label for given image
 
 ``` python
 # Predict the values from the validation dataset
 Y_pred = model.predict(X_val)
 ```
-b. Creating confusion matrix using predicted and actual labels
+##### b. Creating confusion matrix using predicted and actual labels
 
 ``` python
 import itertools 
@@ -281,7 +281,7 @@ plot_confusion_matrix(confusion_mtx, classes = range(10))
 ```     
 
 
-5. Predict Test Data
+### 5. Predict Test Data
 
 ```python
 # predict results
@@ -290,7 +290,7 @@ results = model.predict(X_test)
 results = np.argmax(results,axis = 1)
 results = pd.Series(results,name="Label")
 ```
-6. Save Predictions
+### 6. Save Predictions
 
 The predicted labels are stored in csv file using pandas to_csv function.
 ```python
