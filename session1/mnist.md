@@ -225,12 +225,13 @@ Hyperparameter is a parameter whose value is set before the learning process. Hy
 * Batch Size - Number of images to be read at a time for extracting feature maps
 
 ##### c. Set optimizer
-
-Adam optimizer is used to create the model
+ Optimizer is used to update weight and model parameters to minimize loss function.Adam stands for Adaptive Moment Estimation is chosen because of its fast convergence. 
 
 ##### d. Compiling the model
-
-categorical_crossentropy is a loss function for catecorical variables is passed to compiler. The metric 'accuracy' is used to measure the performance of the model.
+While compiling three parameters loss, optimizer and metrics are required. 
+>categorical_crossentropy is a loss function for catecorical variables
+>Adam Optimizer to control the learning rate
+>The metric 'accuracy' is used to measure the performance of the model.
 ``` python
 model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 ```
@@ -246,7 +247,7 @@ history = model.fit(X_train, Y_train, epochs=40,verbose=1,validation_data = (X_v
 ### 3. Evaluate the model
 
 
-Find training and validation accuracy. 
+Find validation loss and  validation accuracy. 
 
 ``` python
 val_loss,val_acc = model.evaluate(X_val, Y_val, verbose=0)
@@ -260,6 +261,8 @@ The validation accuracy is 99.11 %.
 ### 4. Image Prediction
 
 ##### a. Predict label for given image
+
+
 
 ``` python
 # Predict the values from the validation dataset
