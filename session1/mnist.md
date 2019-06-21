@@ -1,33 +1,47 @@
-### Getting Started With Tensorflow
+## Introduction
 
-Tensorflow is a machine learning library used by researchers and also for production. In this guide how to perform simple image classification in tensorflow using keras backend is explained.
- Image Classification is the task of assigning single label to  input image from predefined set of labels otherwise called labels or categories. This task can be divided into following sub tasks.
+Tensorflow is a machine learning library used by researchers and, also, for production. In this guide we’ll explore how to perform simple image classification in Tensorflow using Keras backend.
+Image Classification is the task of assigning a single label to an input image from a predefined set of labels, otherwise called labels or categories. After reading this guide you will have a clear understanding of how image classification works. Once Image is classified you can draw the bounding box over the image. This is called Image localization. Image classification is the basis for the self-driving car, creating Generative networks which can help industries in 
+decision-making tasks. 
+
+
+
+This task can be divided into the following subtasks.
  
- 1.  Data Prepration 
-      1. Load Data
-      1. Exploratory data analysis
-      1. Normalization
-      1. Reshaping
-      1. Label encoding
-      1. Split training and validation set
-
- 1.  Building CNN Model
-     1. Constructing sequential CNN model
-     1. Set hyperparameters
-     1. Set optimizer
-     1. Compiling the model
-     1. Fit the Model 
+ 1.  Data Preparation 
  
- 1. Evaluate the model
-     1. Find training and validation accuracy
-     1. Creating confusion matrix using predicted and actual labels
+      A. Load data      
+      B.Exploratory data analysis      
+      C.Normalization       
+      D.Reshaping      
+      E. Label encoding      
+      F. Split training and validation set
 
- 1. Image Prediction
-     1. Predict label for given image
+ 1.  Building a CNN Model
+ 2.  
+      A. Constructing a sequential CNN model            
+      B. Setting hyper parameters      
+      C. Setting the optimizer     
+      D. Compiling the model      
+      E. Fitting the model 
+ 
+ 1. Evaluating the Model 
+         
+ 1. Predicting Validation Data
+
+	A. Predicting the Labels for Validation Data
+	
+	B.  Creating a confusion matrix using predicted and actual labels
+
+1. Predicting Test  Data
+
+ 1. Save Predictions
+ 1. Conclusion
+ 1. Further Reading
     
- ####  Environment Setup
+##  Environment Setup
  
-Google Colab is used to do this demo. <url>https://colab.research.google.com/<url>. Google Colab provides free GPU and TPU to perform ML/AI tasks. First you need to grab your New API Token fromm Kaggle account. Then uplaod api token file kaggle.json in colab using 
+Google Colab is used for this demo [Google Colab](https://colab.research.google.com/). It provides free GPU and TPU to perform ML/AI tasks. The entire code of this guide can be found in [mnist](https://colab.research.google.com/drive/1nFyGN38mR_y5a5hxsavWw3UelWZhZ1Ka#scrollTo=e0encx4URXIm).  First, you need to grab your New API Token from a Kaggle account. Then, upload the API token file as a kaggle.json in Colab using the following code:
  
 ```python
 
@@ -35,7 +49,7 @@ from google.colab import files
 files.upload()
 ```
 
- Next step is to mount a google drive and change to desired directory in google drive. 
+The next step is to mount a Google drive and change it to the desired directory in Google drive. 
  
  ```python
  from google.colab import drive
@@ -46,7 +60,7 @@ os.chdir("/content/gdrive/My Drive/<path/of/google drive folder/>")  #change dir
 
  ```
  
- Netx install kaggle python library through pip installation then create a directory named kaggle and copy api token and set permissions 
+Next, install the Kaggle python library through pip installation. Then, create a directory named Kaggle, copy the API token, and set permissions.
 
 ```python
 !pip install -q kaggle
@@ -56,29 +70,30 @@ os.chdir("/content/gdrive/My Drive/<path/of/google drive folder/>")  #change dir
 !chmod 600 /root/.kaggle/kaggle.json  # set permission
 ```
 
-Then download MNIST Digit Recognizer data using below command
+Then, download MNIST Digit Recognizer data using the below command:
+
  ```python
  !kaggle competitions download -c digit-recognizer
  ```
  
- If download is successful three files found in present working directory namely train.csv, test.csv and sample_submission.csv. This data can be dowloaded directely from Kaggle website <url>https://www.kaggle.com/c/digit-recognizer/data and used when training in different environment setup.
+If the download is successful, three files will be found in the present working directory named “train.csv”, “test.csv”, and “sample_submission.csv”. This data can be downloaded directly from the [Kaggle website](https://www.kaggle.com/c/digit-recognizer/data) and used for training in different environment setup.
  
- ### About the Data
+## About the Data
  
- MNIST is a hand written digits images and each image is of size 28x28 = 784 pixels for each image. Given Digit Recognizer data has  42000 training images and 28000 test images. Data is represented  in csv format in which first column is label and remaining 784 columns represent pixel value. Each row represent individual images. Test data contain 784 columns. The task is to predict labels for the 28000 test images. Labels are digits 0-9.
+MNIST is a handwritten digit image database, and each image is 28x28 = 784 pixels for each image. The given Digit Recognizer Data has 42000 training images and 28000 test images. Data is represented in CSV format, in which the first column is the label and the remaining 784 columns represent pixel values. Each row represents individual images. The test data contains 784 columns. The task is to predict labels for the 28000 test images; labels are digits 0-9.
 
  
-#### 1.  Data Prepration 
+### 1.  Data Prepration 
 
-   ##### a. Load Data
+#### A. Load Data
    
-   Read image data stored in csv format. Pandas read_csv() function is used to read csv file.
+Read the image data stored in CSV format. The pandas read_csv() function is used to read the CSV file.
 
   ``` python
   train = pd.read_csv("train.csv")
   test=pd.read_csv("test.csv")
   ```
-  Then prepare data for traininig by dropping the label column. The training data contains only pixel values.  
+Then, prepare the data for training by dropping the label column. The training data contains only pixel values.  
 
   ```python
   X_train = train.drop(["label"],axis = 1)
@@ -86,18 +101,18 @@ Then download MNIST Digit Recognizer data using below command
   X_test=test
   ```
 
-   ##### b. Exploratory data analysis
+#### B. Exploratory Data Analysis
 
-   After reading data check the quality of data.Find how the 10 classes in training images are distributed?, Find how many missing values present?. The below code counts how many samples present for each classes.    
+After reading data check to verify the quality of the data, can you find how the 10 classes in the training images are distributed? Can you find how many missing values are present? The below code counts how many samples are present for each class.    
 
   ``` python
   g = sns.countplot(Y_train)
   Y_train.value_counts() 
   ```
 
-  ![alt text](https://github.com/joyjeni/AI/blob/master/session1/img/class_count.png "EDA")
+  ![alt text](https://i.imgur.com/DUsdhUM.png)
 
-  Next we calculate number of null values in train and test data. This will tell is there any corrupted images in data. In this case there is no null values the data quality is good.
+Next, we will calculate the number of null values in the training and test data. This will tell us if there are any corrupted images in the data. In this case, there are no null values, so  the data quality is good.
 
 
   ``` python
@@ -107,38 +122,39 @@ Then download MNIST Digit Recognizer data using below command
   X_test.isnull().any().describe()
   ```
 
-  ##### c. Normalization
 
-   This is gray scale image with possible pixel intensity values from 0-255. To make the pixel intensity values within range 0-1 divide all pixel intensity values by 255. The motivation is to achieve consistency in range of values handled to avoid mental distraction or fatigue
+#### C. Normalization
+
+This is a grayscale image with possible pixel intensity values from 0-255. To make the pixel intensity values within the range 0-1, we’ll divide the intensity values of all pixels by 255. The motivation is to achieve consistency in the range of values being handled to avoid mental distraction or fatigue.
 
    ``` python
   X_train = X_train/255.0
   X_test = X_test/255.0
   ```
- ##### d. Reshaping
+#### D. Reshaping
 
-  The Conv2D layers in Keras is designed to work with 3 dimensions per image. The have 4D inputs and outputs. The input arguments are number of samples, width,height and number of features or channels. Syntax: reshape (nb_samples,  width, height,nb_features)
+The Conv2D layers in Keras are designed to work with three-dimensions per image. They have 4D inputs and outputs. The input arguments are the number of samples, width, height, and the number of features or channels. Syntax: reshape (nb_samples,  width, height,nb_features)
   
   ``` python
   X_train = X_train.values.reshape(len(X_train), 28, 28,1)
   X_test = X_test.values.reshape(len(X_test), 28, 28,1) 
   ```
- ##### e. Label encoding
+#### E. Label Encoding
 
-  In label encoding convert labels into one hot encoding. 
+When encoding labels, convert labels into one hot encoding. 
 
-  ![alt text](https://github.com/joyjeni/AI/blob/master/session1/img/onehot_cropped.png "onehot")
+![alt text](https://i.imgur.com/wKtY1Og.png)
 
-  Keras function to_categorical() takes labels[0-9] as input and convert to one hot encoding of integer encoded values.
+The Keras function “to_categorical()” takes labels[0-9] as the input and converts it to a [one-hot encoding](https://en.wikipedia.org/wiki/One-hot) of integer encoded values.
 
   ``` python
   from keras.utils.np_utils import to_categorical
 
   Y_train = to_categorical(Y_train, num_classes = 10)
    ```
-  ##### f. Split training and validation set
+#### F. Split Training and Validation Set
 
-   Training data is splitted into train and validation set. Validation data is created to evaluate the performance of model before applying it into actual data. Below code randomly moves 10% of training data into validation data. We set random seed =3 to initialise random generator to randomly pick the validation data.
+Training data is split into the training and validation set. Validation data is created to evaluate the performance of the model before applying it into actual data. The below code randomly moves 10% of the training data into validation data. We set a random seed =3 to initialize a random generator to randomly pick the validation data.
 
   ```python
   from sklearn.model_selection import train_test_split
@@ -147,128 +163,129 @@ Then download MNIST Digit Recognizer data using below command
   X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size = 0.1, random_state=random_seed)
   ```
 
-### 2.  Building CNN Model
+## 2.  Building a CNN Model
  
-##### a. Constructing sequential CNN model
+### A. Constructing Sequential CNN Model
 
-###### * Convolution 
+#### i). Convolution Operation
 
-Convolution  is done to extract features from input images. In figure below the image size is 5X5 and kernel size is 3x3. The kernel is slided over the image to extract feature map. The feature map extracted is spatially corelated
+Convolution is done to extract features from input images. In the figure below, the image size is 5x5 and kernel size is 3x3. The kernel is slid over the image to extract the feature map. The feature map that is extracted is spatially correlated.
 
-![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/convolution.gif)
+![alt_text](https://i.imgur.com/NcyYyaJ.gif)
 
-###### * Batch Normalization
+#### ii)Batch Normalization
 
-The batch normalization is used to bring the values in hidden layers in same scale. To classify oranges and lemons each batch sees different set of values and their activation values will be different. Batch Normalization reduces the dependency between each batch by bringing all values into same scale. 
+The batch normalization is used to bring the values in hidden layers into the same scale as everything else. To classify oranges from lemons, each batch sees a different set of values and their activation values will be different. Batch Normalization reduces the dependency between each batch by bringing all of the values into the same scale. 
 
-![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/batch_normalization.png)
+![alt_text](https://i.imgur.com/oimZurP.png)
 
-###### * Max Pooling
+#### iii)Max Pooling
 
-Max Pooling extracts important feature obtained from convolution. Maxpooling is done after few convolutions.In code below 2x2 max pooling is used. It find the maximum value in 2x2 and return highest value. It also reduces number of parameters in network by reducing the size of feature map.
-![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/maxpool.png)
+Max Pooling extracts important features obtained from convolution. Max pooling is done after a few convolutions. In the code below, 2x2 max pooling is used. It finds the maximum value in the 2x2 and returns the highest value. It also reduces the number of parameters in the network by reducing the size of the feature map.
+![alt_text](https://i.imgur.com/PIF7Fmn.png)
 
-###### * Global Average Pooling
+#### iv) Global Average Pooling
 
-For 11x11x10 incoming tensor of feature maps take the average of each 11x11 matrix slice which gives 10 dimensional vector.This can feed  into the fully connected layers which is single dimension vector representing 10 classes.
+For the 11x11x10 incoming tensor feature maps take the average of each 11x11 matrix slice which gives a 10-dimensional vector. This can feed into the fully-connected layers which are a single-dimension vector representing 10 classes.
 
-###### * ReLu Activation
+#### v) ReLu Activation
 
-ReLu Activation function is used to carry forward all positive values to next layer and negative values are dropped down. Any value less than zero is negative and value zero and greater is taken as positive value. 
+The ReLu Activation function is used to carry forward all of the positive values to the next layer and makes sure negative values are dropped down. Any value less than zero is negative; a value of zero or greater is taken as a positive value. 
 
-![alt_text](https://github.com/joyjeni/AI/blob/master/session1/img/relu.png)
+![alt_text](https://i.imgur.com/PMXrkfO.png)
 
 ```python
+
 model = Sequential()
-model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(28,28,1))) # 26
+model.add(Conv2D(128, (3, 3), activation='relu', input_shape=(28,28,1))) # 26
 model.add(BatchNormalization())
 
-model.add(Conv2D(16, (3, 3), activation='relu')) # 24
+model.add(Conv2D(64, (3, 3), activation='relu')) # 24
 model.add(BatchNormalization())
 
-model.add(Conv2D(21, (3, 3), activation='relu')) # 22
+model.add(Conv2D(50, (3, 3), activation='relu')) # 22
 model.add(BatchNormalization())
 
-model.add(MaxPooling2D(pool_size=(2, 2))) #11
-
-model.add(Conv2D(18, (3, 3), activation='relu')) # 9
+model.add(Conv2D(52, (3, 3), activation='relu')) # 20
 model.add(BatchNormalization())
 
-
-
-model.add(Conv2D(27, (3,3), activation='relu'))#7
+model.add(Conv2D(64, (3, 3), activation='relu')) # 18
 model.add(BatchNormalization())
 
-model.add(Conv2D(15, (3,3), activation='relu'))#5
+model.add(Conv2D(32, (3, 3), activation='relu')) # 16
 model.add(BatchNormalization())
 
-model.add(Conv2D(10, (3,3), activation='relu'))#3
+model.add(Conv2D(27, (3, 3), activation='relu')) # 14
 model.add(BatchNormalization())
 
-
-model.add(Conv2D(10, 1, activation='relu'))#1
+model.add(Conv2D(15, (3, 3), activation='relu')) # 12
 model.add(BatchNormalization())
 
+model.add(Conv2D(10, (3, 3), activation='relu')) # 9
+model.add(BatchNormalization())
 
 model.add(GlobalAveragePooling2D())
 
 
 #model.add(Flatten())
 model.add(Activation('softmax'))
-```
-##### b. Set hyperparameters
 
-Hyperparameter is a parameter whose value is set before the learning process. Hyperparameters present in CNN are 
+#model.add(Flatten())
+model.add(Activation('softmax'))
+```
+### B. Setting Hyperparameters
+
+A hyperparameter is a parameter whose value is set before the learning process. The hyperparameters present in CNN are:
 
 * Learning Rate
-* Number of epochs - Number of times whole training image is seen
+* Number of Epochs - Number of times the whole training image is seen
 * Batch Size - Number of images to be read at a time for extracting feature maps
 
-##### c. Set optimizer
- Optimizer is used to update weight and model parameters to minimize loss function.Adam stands for Adaptive Moment Estimation is chosen because of its fast convergence. 
+### C. Setting the Optimizer
+The optimizer is used to update weight and model parameters to minimize the loss function. Adam stands for Adaptive Moment Estimation and it’s chosen because of its fast convergence. 
 
-##### d. Compiling the model
-While compiling three parameters loss, optimizer and metrics are required. 
->categorical_crossentropy is a loss function for catecorical variables
->Adam Optimizer to control the learning rate
->The metric 'accuracy' is used to measure the performance of the model.
+### D. Compiling the Model
+When compiling the three parameters  loss, the optimizer and metrics are required. 
+
+- categorical_crossentropy is a loss function for categorical variables
+- Use the Adam Optimizer to control the learning rate
+- The metric 'accuracy' is used to measure the performance of the model
+
 ``` python
 model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 ```
-##### e. Fit the Model 
 
-Apply model in train and validation set.
+### E. Fitting the Model 
+
+Apply the model in the training and validation set.
 
 ``` python
 %%time
 history = model.fit(X_train, Y_train, epochs=40,verbose=1,validation_data = (X_val,Y_val),batch_size=batch_size)
 ```
 
-### 3. Evaluate the model
+## 3. Evaluating the Model
 
-
-Find validation loss and  validation accuracy. 
+Now find the validation loss and validation accuracy of the model. 
 
 ``` python
 val_loss,val_acc = model.evaluate(X_val, Y_val, verbose=0)
 print("Validation Accuracy:",val_acc)       
 ```    
 
-The validation accuracy is 99.11 %. 
+The validation accuracy is 99.19 %. 
 
 
+## 4. Predicting  Validation  Data
 
-### 4. Image Prediction
-
-##### a. Predict label for given image
-
-
+### A. Predicting the Labels for Validation Data
 
 ``` python
 # Predict the values from the validation dataset
 Y_pred = model.predict(X_val)
 ```
-##### b. Creating confusion matrix using predicted and actual labels
+
+### B. Creating a Confusion Matrix Using Predicted and Actual Labels
 
 ``` python
 import itertools 
@@ -283,24 +300,34 @@ confusion_mtx = confusion_matrix(Y_true, Y_pred_classes)
 plot_confusion_matrix(confusion_mtx, classes = range(10))  
 ```     
 
+## 5. Predicting Test Data
 
-### 5. Predict Test Data
+This time predict classes for unseen images. These images are not used in training or validation. 
 
 ```python
 # predict results
 results = model.predict(X_test)
-# select the indix with the maximum probability
+# select the index with the maximum probability
 results = np.argmax(results,axis = 1)
 results = pd.Series(results,name="Label")
 ```
 ### 6. Save Predictions
 
-The predicted labels are stored in csv file using pandas to_csv function.
+The predicted labels are stored in a CSV file using the pandas to_csv function.
+
 ```python
 submit = pd.concat([pd.Series(range(1,28001),name = "ImageId"),results],axis = 1)
 submit.to_csv("cnn_mnist_predictions.csv",index=False)
 ```
 
 
+
+## Conclusion
+
+In this guide, we have learned how to load images from Keras datasets, how to preprocess images, how to train images, validate the model performance and how to predict classes for unseen images. You can change the model hyperparameters and train it again, and see if the performance can be further increased.
+
+## Further Reading
+
+To know more about image classification techniques you can read about the different types of convolution architecture. Densenet and its variants are widely used for Image Classification, Image Segmentation, Image Localization tasks. 
 
 
